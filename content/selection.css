@@ -1,0 +1,191 @@
+/* Loaded into the closed shadow root of the selection overlay, so page styles
+   can never affect it and it can never affect the page. */
+
+:host {
+  all: initial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sx-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  cursor: crosshair;
+  background: rgba(8, 10, 22, 0.5);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  font: 13px/1.3 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #fff;
+  outline: none;
+  animation: sx-fade 0.15s ease-out;
+}
+
+.sx-layer.has-sel {
+  background: transparent;
+}
+
+@keyframes sx-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sx-hint {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(20, 22, 36, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.01em;
+}
+
+.sx-hint kbd {
+  font: inherit;
+  font-weight: 600;
+  padding: 1px 6px;
+  margin: 0 2px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sx-layer.has-sel .sx-hint {
+  display: none;
+}
+
+.sx-sel {
+  position: absolute;
+  border: 2px solid #7b83ff;
+  border-radius: 2px;
+  box-shadow: 0 0 0 100vmax rgba(8, 10, 22, 0.5);
+  cursor: move;
+}
+
+.sx-sel[hidden],
+.sx-toolbar[hidden],
+.sx-toast[hidden],
+.sx-dims[hidden] {
+  display: none;
+}
+
+.sx-dims {
+  position: absolute;
+  left: -2px;
+  top: -32px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: #4f5bff;
+  color: #fff;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(79, 91, 255, 0.45);
+}
+
+.sx-dims.inside {
+  top: 6px;
+  left: 6px;
+}
+
+.sx-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -7px 0 0 -7px;
+  background: #fff;
+  border: 2px solid #4f5bff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.sx-handle[data-h='nw'] { left: 0; top: 0; cursor: nwse-resize; }
+.sx-handle[data-h='n']  { left: 50%; top: 0; cursor: ns-resize; }
+.sx-handle[data-h='ne'] { left: 100%; top: 0; cursor: nesw-resize; }
+.sx-handle[data-h='e']  { left: 100%; top: 50%; cursor: ew-resize; }
+.sx-handle[data-h='se'] { left: 100%; top: 100%; cursor: nwse-resize; }
+.sx-handle[data-h='s']  { left: 50%; top: 100%; cursor: ns-resize; }
+.sx-handle[data-h='sw'] { left: 0; top: 100%; cursor: nesw-resize; }
+.sx-handle[data-h='w']  { left: 0; top: 50%; cursor: ew-resize; }
+
+.sx-toolbar {
+  position: absolute;
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(20, 22, 36, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  cursor: default;
+}
+
+.sx-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  color: #e8eaf6;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+
+.sx-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sx-btn:active {
+  transform: scale(0.97);
+}
+
+.sx-btn:focus-visible {
+  outline: 2px solid #9aa1ff;
+  outline-offset: 1px;
+}
+
+.sx-btn.primary {
+  background: #4f5bff;
+  color: #fff;
+}
+
+.sx-btn.primary:hover {
+  background: #636dff;
+}
+
+.sx-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  max-width: min(520px, calc(100vw - 32px));
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #2a1d24;
+  border: 1px solid #e5484d;
+  color: #ffd9db;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-layer { animation: none; }
+  .sx-btn { transition: none; }
+}

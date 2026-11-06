@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snapshot preview</title>
+    <link rel="icon" href="../assets/icons/icon32.png" />
+    <link rel="stylesheet" href="../assets/theme.css" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="brand">
+        <img src="../assets/icons/icon32.png" alt="" width="26" height="26" />
+        <span>Snapshot</span>
+      </div>
+
+      <div class="meta" id="meta" hidden>
+        <span class="chip accent" id="meta-kind"></span>
+        <span class="chip" id="meta-dims"></span>
+        <span class="chip" id="meta-size"></span>
+        <span class="chip host" id="meta-host" hidden></span>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" id="btn-copy" disabled title="Copy image to clipboard (Ctrl/Cmd+C)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>
+          <span class="label">Copy</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="btn-save" disabled title="Save as PNG (Ctrl/Cmd+S)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="m7 11 5 5 5-5" /><path d="M5 20h14" /></svg>
+          <span class="label">Save PNG</span>
+        </button>
+        <button type="button" class="btn" id="btn-search" disabled hidden title="Search this image with Google Lens">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="m20 20-4.2-4.2" /></svg>
+          <span class="label">Visual Search</span>
+        </button>
+        <button type="button" class="btn btn-ghost" id="btn-close" title="Close preview (Esc)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12" /><path d="M18 6 6 18" /></svg>
+          <span class="label">Close</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="banner note" id="note" role="status" hidden></div>
+
+    <main class="stage" id="stage">
+      <div class="loading" id="loading" role="status">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Preparing your screenshot…</p>
+      </div>
+
+      <div class="empty" id="empty" hidden>
+        <h2 id="empty-title">Screenshot not available</h2>
+        <p id="empty-text">Previews are only kept for a short time. Take a new screenshot from the toolbar icon.</p>
+      </div>
+
+      <img id="shot" class="shot fit" alt="Captured screenshot" hidden />
+
+      <button type="button" class="zoom btn" id="btn-zoom" hidden title="Toggle fit / actual size">
+        <span id="zoom-label">100%</span>
+      </button>
+    </main>
+
+    <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+    <dialog id="consent" aria-labelledby="consent-title">
+      <form method="dialog" class="dialog">
+        <h2 id="consent-title">Send this image to Google Lens?</h2>
+        <p>
+          Visual Search uploads the screenshot to <strong>Google</strong> (lens.google.com) so it can look for
+          matches. Nothing is sent to anyone else, and nothing is sent until you confirm.
+        </p>
+        <p class="muted">
+          A copy is also placed on your clipboard. If Lens opens without results, press <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>V</kbd>
+          on the Lens page.
+        </p>
+        <label class="remember"><input type="checkbox" id="consent-remember" /> Don’t ask again</label>
+        <div class="dialog-actions">
+          <button type="submit" value="cancel" class="btn">Cancel</button>
+          <button type="submit" value="ok" class="btn btn-primary" id="consent-ok">Search with Google</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="preview.js"></script>
+  </body>
+</html>

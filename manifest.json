@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Snapshot – Area & Full-Page Screenshots",
+  "short_name": "Snapshot",
+  "version": "1.0.0",
+  "description": "Capture any area or the entire page, then copy, save as PNG, or search with Google Lens. Everything is processed locally.",
+  "minimum_chrome_version": "105",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Snapshot",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["activeTab", "scripting", "downloads", "clipboardWrite"]
+}
